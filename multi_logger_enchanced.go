@@ -9,7 +9,7 @@ import (
 )
 
 // MultiLoggerEnchanced is a multi logger implementation which call every logger async,
-// but waits until all of them will be finished.
+// but waits until all of them will be finished (configurable timeout per logger exists).
 type MultiLoggerEnchanced struct {
 	printErrors      bool
 	timeoutPerLogger time.Duration

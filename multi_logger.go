@@ -8,7 +8,7 @@ import (
 	multierror "github.com/hashicorp/go-multierror"
 )
 
-// MultiLogger is a multi logger implementation which call every logger consistently.
+// MultiLogger is a multi logger implementation which call every logger consistently and has timeout per Log call (not for all loggers separately).
 type MultiLogger struct {
 	printErrors bool
 	timeout     time.Duration
