@@ -1,6 +1,7 @@
 package extensions
 
 import (
+	"errors"
 	"log"
 	"time"
 
@@ -21,10 +22,10 @@ type MultiLoggerEnchanced struct {
 // If printErrors is true, then besides returning errors within Log function
 // MultiLoggerEnchanced will print all errors of it's child loggers to stderr.
 // To exclude situations when one of the loggers will hang up, timeoutPerLogger variable exists.
-func NewMultiLoggerEnchanced(printErrors bool, timeoutPerLogger time.Duration, loggers ...kitlog.Logger) kitlog.Logger {
+func NewMultiLoggerEnchanced(printErrors bool, timeoutPerLogger time.Duration, loggers ...kitlog.Logger) (kitlog.Logger, error) {
 
 	if timeoutPerLogger < 1 {
-		panic("timeout per logger can't be less than 1")
+		return nil, errors.New("timeout per logger can't be less than 1")
 	}
 
 	return &MultiLoggerEnchanced{
@@ -32,7 +33,7 @@ func NewMultiLoggerEnchanced(printErrors bool, timeoutPerLogger time.Duration, l
 		timeoutPerLogger: timeoutPerLogger,
 
 		loggers: loggers,
-	}
+	}, nil
 
 }
 
